@@ -11,15 +11,19 @@ import com.ddd.clothing.inventory.entities.Product;
 // Value objects import
 import com.ddd.clothing.inventory.valueObjects.InventoryID;
 
+// Events import
+import com.ddd.clothing.inventory.events.InventoryCreated;
+
 import java.util.List;
-import java.util.Set;
 
 public class Inventory extends AggregateEvent<InventoryID> {
-    protected Set<Provider> providers;
-    protected Set<Product> products;
+    protected List<Provider> providers;
+    protected List<Product> products;
 
     public Inventory(InventoryID inventoryID) {
         super(inventoryID);
+        subscribe(new InventoryEventChange(this));
+        appendChange(new InventoryCreated(inventoryID)).apply();
     }
 
     // Get Event Logs
@@ -30,11 +34,11 @@ public class Inventory extends AggregateEvent<InventoryID> {
     }
 
     // Show The Properties Of The Entities Of The Aggregate
-    public Set<Provider> Providers() {
+    public List<Provider> Providers() {
         return providers;
     }
 
-    public Set<Product> Products() {
+    public List<Product> Products() {
         return products;
     }
 }
