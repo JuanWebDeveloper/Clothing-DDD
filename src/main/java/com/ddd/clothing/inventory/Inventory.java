@@ -28,4 +28,13 @@ public class Inventory extends AggregateEvent<InventoryID> {
         events.forEach(inventory::applyEvent);
         return inventory;
     }
+
+    // Show The Properties Of The Entities Of The Aggregate
+    public Set<Provider> Providers() {
+        return providers;
+    }
+
+    public Set<Product> Products() {
+        return products;
+    }
 }

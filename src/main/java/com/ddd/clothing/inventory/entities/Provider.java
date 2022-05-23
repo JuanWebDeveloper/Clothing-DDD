@@ -20,4 +20,17 @@ public class Provider extends Entity<ProviderID> {
         this.providerPhone = providerPhone;
         this.products = products;
     }
+
+    // Show The Entity Properties
+    public InventoryName InventoryName() {
+        return inventoryName;
+    }
+
+    public ProviderPhone ProviderPhone() {
+        return providerPhone;
+    }
+
+    public List<Product> Products() {
+        return products;
+    }
 }

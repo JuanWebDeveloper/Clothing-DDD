@@ -26,4 +26,25 @@ public class Product extends Entity<ProductID> {
         this.priceProduct = priceProduct;
         this.quantityProducts = quantityProducts;
     }
+
+    // Show The Entity Properties
+    public InventoryName InventoryName() {
+        return inventoryName;
+    }
+
+    public ProductDescription ProductDescription() {
+        return productDescription;
+    }
+
+    public PriceProduct PriceProduct() {
+        return priceProduct;
+    }
+
+    public QuantityProducts QuantityProducts() {
+        return quantityProducts;
+    }
+
+    public List<Product> InventoryProducts() {
+        return inventoryProducts;
+    }
 }
