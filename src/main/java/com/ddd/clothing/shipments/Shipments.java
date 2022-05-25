@@ -10,7 +10,7 @@ import com.ddd.clothing.sales.valueObjects.*;
 import com.ddd.clothing.shipments.valueObjects.*;
 
 // Events import
-import com.ddd.clothing.shipments.events.ShipmentCreated;
+import com.ddd.clothing.shipments.events.*;
 
 import java.util.Objects;
 
@@ -37,5 +37,13 @@ public class Shipments extends AggregateEvent<ShipmentsID> {
     private Shipments(ShipmentsID shipmentsID) {
         super(shipmentsID);
         subscribe(new ShipmentsEventChange(this));
+    }
+
+    // Behaviors Of The Aggregate
+    public void assignShippingDescription(ShipmentsID shipmentsID, ShippingDescription shippingDescription) {
+        appendChange(new ShippingDescriptionAssigned(
+                Objects.requireNonNull(shipmentsID),
+                Objects.requireNonNull(shippingDescription)
+        )).apply();
     }
 }
