@@ -18,6 +18,7 @@ import com.ddd.clothing.sales.events.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Sales extends AggregateEvent<SalesID> {
     protected List<Seller> sellers = new ArrayList<>();
@@ -49,5 +50,14 @@ public class Sales extends AggregateEvent<SalesID> {
         Sales sales = new Sales(salesID);
         events.forEach(sales::applyEvent);
         return sales;
+    }
+
+    // Behaviors Of The Aggregate
+    public void createSeller(SellerID sellerID, Name name, Phone phone) {
+        appendChange(new SellerCreated(
+                Objects.requireNonNull(sellerID),
+                Objects.requireNonNull(name),
+                Objects.requireNonNull(phone)
+        )).apply();
     }
 }
