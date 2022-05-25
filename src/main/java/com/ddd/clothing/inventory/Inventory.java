@@ -9,12 +9,13 @@ import com.ddd.clothing.inventory.entities.Provider;
 import com.ddd.clothing.inventory.entities.Product;
 
 // Value objects import
-import com.ddd.clothing.inventory.valueObjects.InventoryID;
+import com.ddd.clothing.inventory.valueObjects.*;
 
 // Events import
-import com.ddd.clothing.inventory.events.InventoryCreated;
+import com.ddd.clothing.inventory.events.*;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Inventory extends AggregateEvent<InventoryID> {
     protected List<Provider> providers;
@@ -31,6 +32,15 @@ public class Inventory extends AggregateEvent<InventoryID> {
         Inventory inventory = new Inventory(inventoryID);
         events.forEach(inventory::applyEvent);
         return inventory;
+    }
+
+    // Behaviors Of The Aggregate
+    public void createProvider(ProviderID providerID, InventoryName inventoryName, List<Product> products) {
+        appendChange(new CreatedProvider(
+                Objects.requireNonNull(providerID),
+                Objects.requireNonNull(inventoryName),
+                Objects.requireNonNull(products)
+        )).apply();
     }
 
     // Show The Properties Of The Entities Of The Aggregate

@@ -7,9 +7,5 @@ import java.util.ArrayList;
 
 public class InventoryEventChange extends EventChange {
     public  InventoryEventChange(Inventory inventory) {
-        apply((InventoryCreated event) -> {
-            inventory.providers = new ArrayList<>();
-            inventory.products = new ArrayList<>();
-        });
     }
 }

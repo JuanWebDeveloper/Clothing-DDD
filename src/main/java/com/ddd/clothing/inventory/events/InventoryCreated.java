@@ -13,6 +13,6 @@ public class InventoryCreated extends DomainEvent {
     }
 
     public InventoryID getInventoryID() {
-        return inventoryID;
+        return this.inventoryID;
     }
 }
