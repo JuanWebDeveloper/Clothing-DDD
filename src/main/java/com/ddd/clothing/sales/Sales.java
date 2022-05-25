@@ -6,6 +6,8 @@ import co.com.sofka.domain.generic.AggregateEvent;
 // Entities import
 import com.ddd.clothing.sales.entities.Seller;
 import com.ddd.clothing.sales.entities.Customer;
+import com.ddd.clothing.sales.entities.Order;
+import com.ddd.clothing.shipments.valueObjects.ShipmentsID;
 
 // Value objects import
 import com.ddd.clothing.sales.valueObjects.*;
@@ -21,6 +23,8 @@ public class Sales extends AggregateEvent<SalesID> {
     protected List<Customer> customers = new ArrayList<>();
     protected Customer customer;
     protected Date date;
+    protected Order order;
+    protected ShipmentsID shipmentsID;
     protected Payment payment;
     protected Total total;
     protected Bill bill;
