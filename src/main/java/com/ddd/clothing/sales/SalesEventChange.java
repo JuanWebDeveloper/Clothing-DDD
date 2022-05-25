@@ -30,5 +30,9 @@ public class SalesEventChange extends EventChange {
             var newSeller = new Seller(event.getSellerID(), event.getName(), event.getPhone());
             sales.seller = newSeller;
         });
+
+        apply((CustomerEdited event) -> {
+            sales.editCustomer(event.getCustomerID(), event.getName(), event.getPhone());
+        });
     }
 }
