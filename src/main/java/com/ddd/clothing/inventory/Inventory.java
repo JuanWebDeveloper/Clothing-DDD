@@ -67,6 +67,15 @@ public class Inventory extends AggregateEvent<InventoryID> {
         )).apply();
     }
 
+    public void editProduct(ProductID productID, InventoryName inventoryName, ProductDescription productDescription, PriceProduct priceProduct) {
+        appendChange(new EditedProduct(
+                Objects.requireNonNull(productID),
+                Objects.requireNonNull(inventoryName),
+                Objects.requireNonNull(productDescription),
+                Objects.requireNonNull(priceProduct)
+        )).apply();
+    }
+
     // Show The Properties Of The Entities Of The Aggregate
     public List<Provider> Providers() {
         return providers;
