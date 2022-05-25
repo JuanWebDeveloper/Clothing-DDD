@@ -1,7 +1,7 @@
 package com.ddd.clothing.sales;
 
 import co.com.sofka.domain.generic.EventChange;
-import com.ddd.clothing.sales.entities.Customer;
+import com.ddd.clothing.sales.entities.*;
 import com.ddd.clothing.sales.events.*;
 
 public class SalesEventChange extends EventChange {
@@ -20,6 +20,10 @@ public class SalesEventChange extends EventChange {
 
         apply((AssignedCustomer event) -> {
             sales.customer = new Customer(event.getCustomerID(), event.getName(), event.getPhone());
+        });
+
+        apply((AssignedSeller event) -> {
+            sales.seller = new Seller(event.getSellerID(), event.getName(), event.getPhone());
         });
     }
 }
