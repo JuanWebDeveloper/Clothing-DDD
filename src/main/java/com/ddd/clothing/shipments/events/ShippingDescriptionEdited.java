@@ -1,6 +1,7 @@
 package com.ddd.clothing.shipments.events;
 
 import co.com.sofka.domain.generic.DomainEvent;
+
 import com.ddd.clothing.shipments.valueObjects.Address;
 import com.ddd.clothing.shipments.valueObjects.AddresseeID;
 

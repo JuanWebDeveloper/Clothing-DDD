@@ -59,4 +59,13 @@ public class Shipments extends AggregateEvent<ShipmentsID> {
                 Objects.requireNonNull(address)
         )).apply();
     }
+
+    public void assignToDomiciliarys(ShipmentsID shipmentsID, DomiciliaryID domiciliaryID) {
+        appendChange(new DomiciliaryAssigned(
+                Objects.requireNonNull(shipmentsID),
+                Objects.requireNonNull(domiciliaryID)
+        )).apply();
+    }
+
+    }
 }
