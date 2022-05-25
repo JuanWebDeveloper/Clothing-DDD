@@ -16,21 +16,21 @@ import java.util.Objects;
 
 public class Shipments extends AggregateEvent<ShipmentsID> {
     protected AddresseeID addresseeID;
-    protected SellerID sellerID;
+    protected SalesID salesID;
     protected Date date;
     protected ShippingDescription shippingDescription;
 
-    public Shipments(ShipmentsID shipmentsID, SellerID sellerID, AddresseeID addresseeID, DomiciliaryID domiciliaryID, Address address, ShippingDescription shippingDescription, Date date) {
+    public Shipments(ShipmentsID shipmentsID, SalesID salesID, AddresseeID addresseeID, DomiciliaryID domiciliaryID, Address address, ShippingDescription shippingDescription, Date date) {
         super(shipmentsID);
         subscribe(new ShipmentsEventChange(this));
         appendChange(new ShipmentCreated(
-                Objects.requireNonNull(sellerID),
+                Objects.requireNonNull(salesID),
                 Objects.requireNonNull(addresseeID),
                 Objects.requireNonNull(domiciliaryID),
                 Objects.requireNonNull(address),
                 Objects.requireNonNull(shippingDescription),
                 Objects.requireNonNull(date)
-        ));
+        )).apply();
     }
 
     private Shipments(ShipmentsID shipmentsID) {
@@ -67,5 +67,15 @@ public class Shipments extends AggregateEvent<ShipmentsID> {
         )).apply();
     }
 
+    public void createShipment(SalesID salesID, AddresseeID addresseeID, DomiciliaryID domiciliaryID, Address address, ShippingDescription shippingDescription, Date date) {
+        appendChange(new ShipmentCreated(
+                Objects.requireNonNull(salesID),
+                Objects.requireNonNull(addresseeID),
+                Objects.requireNonNull(domiciliaryID),
+                Objects.requireNonNull(address),
+                Objects.requireNonNull(shippingDescription),
+                Objects.requireNonNull(date)
+        )).apply();
     }
+
 }
