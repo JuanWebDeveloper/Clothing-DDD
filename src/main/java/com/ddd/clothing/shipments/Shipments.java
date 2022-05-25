@@ -7,6 +7,7 @@ import co.com.sofka.domain.generic.AggregateEvent;
 import com.ddd.clothing.sales.valueObjects.*;
 
 // Value objects import
+import com.ddd.clothing.shipments.entities.Addressee;
 import com.ddd.clothing.shipments.valueObjects.*;
 
 // Events import
@@ -44,6 +45,13 @@ public class Shipments extends AggregateEvent<ShipmentsID> {
         appendChange(new ShippingDescriptionAssigned(
                 Objects.requireNonNull(shipmentsID),
                 Objects.requireNonNull(shippingDescription)
+        )).apply();
+    }
+
+    public void editShippingDescription(AddresseeID addresseeID, Address address) {
+        appendChange(new ShippingDescriptionEdited(
+                Objects.requireNonNull(addresseeID),
+                Objects.requireNonNull(address)
         )).apply();
     }
 }
