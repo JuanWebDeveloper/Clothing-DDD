@@ -86,6 +86,7 @@ public class Shipments extends AggregateEvent<ShipmentsID> {
         )).apply();
     }
 
+    // Show The Properties Of The Entities Of The Aggregate
     public SalesID getSalesID() {
         return salesID;
     }
