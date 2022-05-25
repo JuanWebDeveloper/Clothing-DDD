@@ -34,5 +34,9 @@ public class SalesEventChange extends EventChange {
         apply((CustomerEdited event) -> {
             sales.editCustomer(event.getCustomerID(), event.getName(), event.getPhone());
         });
+
+        apply((ProductAdded event) -> {
+            sales.order.addProductToOrder(event.getProductID(), event.getInventoryName(), event.getProductDescription(), event.getPriceProduct(), event.getQuantityProducts());
+        });
     }
 }

@@ -2,16 +2,17 @@ package com.ddd.clothing.sales;
 
 // Sofka dependency import
 import co.com.sofka.domain.generic.AggregateEvent;
+import co.com.sofka.domain.generic.DomainEvent;
 
 // Entities import
-import co.com.sofka.domain.generic.DomainEvent;
 import com.ddd.clothing.sales.entities.Seller;
 import com.ddd.clothing.sales.entities.Customer;
 import com.ddd.clothing.sales.entities.Order;
-import com.ddd.clothing.shipments.valueObjects.ShipmentsID;
 
 // Value objects import
 import com.ddd.clothing.sales.valueObjects.*;
+import com.ddd.clothing.shipments.valueObjects.ShipmentsID;
+import com.ddd.clothing.inventory.valueObjects.*;
 
 // Events import
 import com.ddd.clothing.sales.events.*;
@@ -98,6 +99,16 @@ public class Sales extends AggregateEvent<SalesID> {
                 Objects.requireNonNull(customerID),
                 Objects.requireNonNull(name),
                 Objects.requireNonNull(phone)
+        )).apply();
+    }
+
+    public void addProduct(ProductID productID, InventoryName inventoryName, ProductDescription productDescription, PriceProduct priceProduct, QuantityProducts quantityProducts) {
+        appendChange(new ProductAdded(
+                Objects.requireNonNull(productID),
+                Objects.requireNonNull(inventoryName),
+                Objects.requireNonNull(productDescription),
+                Objects.requireNonNull(priceProduct),
+                Objects.requireNonNull(quantityProducts)
         )).apply();
     }
 }
