@@ -112,6 +112,12 @@ public class Sales extends AggregateEvent<SalesID> {
         )).apply();
     }
 
+    public void deleteProduct(ProductID productID) {
+        appendChange(new ProductDeleted(
+                Objects.requireNonNull(productID)
+        )).apply();
+    }
+
     public void createOrder(OrderId orderID) {
         appendChange(new OrderCreated(Objects.requireNonNull(orderID))).apply();
     }

@@ -39,6 +39,10 @@ public class SalesEventChange extends EventChange {
             sales.order.addProductToOrder(event.getProductID(), event.getInventoryName(), event.getProductDescription(), event.getPriceProduct(), event.getQuantityProducts());
         });
 
+        apply((ProductDeleted event) -> {
+            sales.order.removeProductToOrder(event.getProductID());
+        });
+
         apply((OrderCreated event) -> {
             sales.order = new Order(event.getOrderId());
         });
