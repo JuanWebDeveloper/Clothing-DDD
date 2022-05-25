@@ -76,6 +76,12 @@ public class Inventory extends AggregateEvent<InventoryID> {
         )).apply();
     }
 
+    public void deleteProduct(ProductID productID) {
+        appendChange(new DeletedProduct(
+                Objects.requireNonNull(productID)
+        )).apply();
+    }
+
     // Show The Properties Of The Entities Of The Aggregate
     public List<Provider> Providers() {
         return providers;
