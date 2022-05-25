@@ -125,4 +125,8 @@ public class Sales extends AggregateEvent<SalesID> {
     public void calculateTotal(Total total) {
         appendChange(new TotalCalculated(Objects.requireNonNull(total))).apply();
     }
+
+    public void generateBill(Bill bill) {
+        appendChange(new BillGenerated(Objects.requireNonNull(bill))).apply();
+    }
 }

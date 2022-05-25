@@ -51,5 +51,9 @@ public class SalesEventChange extends EventChange {
         apply((TotalCalculated event) -> {
             sales.total = new Total(sales.order.identity());
         });
+
+        apply((BillGenerated event) -> {
+            sales.bill = event.getBill();
+        });
     }
 }
