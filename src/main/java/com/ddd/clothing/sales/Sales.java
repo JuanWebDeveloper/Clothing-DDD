@@ -84,4 +84,12 @@ public class Sales extends AggregateEvent<SalesID> {
                 Objects.requireNonNull(phone)
         )).apply();
     }
+
+    public void editSeller(SellerID sellerID, Name name, Phone phone) {
+        appendChange(new SellerEdited(
+                Objects.requireNonNull(sellerID),
+                Objects.requireNonNull(name),
+                Objects.requireNonNull(phone)
+        )).apply();
+    }
 }
