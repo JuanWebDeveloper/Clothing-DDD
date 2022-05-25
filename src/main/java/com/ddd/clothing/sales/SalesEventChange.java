@@ -3,6 +3,7 @@ package com.ddd.clothing.sales;
 import co.com.sofka.domain.generic.EventChange;
 import com.ddd.clothing.sales.entities.*;
 import com.ddd.clothing.sales.events.*;
+import com.ddd.clothing.sales.valueObjects.Total;
 
 public class SalesEventChange extends EventChange {
     public SalesEventChange(Sales sales) {
@@ -45,6 +46,10 @@ public class SalesEventChange extends EventChange {
 
         apply((OrderCreated event) -> {
             sales.order = new Order(event.getOrderId());
+        });
+
+        apply((TotalCalculated event) -> {
+            sales.total = new Total(sales.order.identity());
         });
     }
 }

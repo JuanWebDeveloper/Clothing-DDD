@@ -121,4 +121,8 @@ public class Sales extends AggregateEvent<SalesID> {
     public void createOrder(OrderId orderID) {
         appendChange(new OrderCreated(Objects.requireNonNull(orderID))).apply();
     }
+
+    public void calculateTotal(Total total) {
+        appendChange(new TotalCalculated(Objects.requireNonNull(total))).apply();
+    }
 }
