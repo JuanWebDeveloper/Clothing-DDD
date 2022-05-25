@@ -35,10 +35,11 @@ public class Inventory extends AggregateEvent<InventoryID> {
     }
 
     // Behaviors Of The Aggregate
-    public void createProvider(ProviderID providerID, InventoryName inventoryName, List<Product> products) {
+    public void createProvider(ProviderID providerID, InventoryName inventoryName, ProviderPhone providerPhone, List<Product> products) {
         appendChange(new CreatedProvider(
                 Objects.requireNonNull(providerID),
                 Objects.requireNonNull(inventoryName),
+                Objects.requireNonNull(providerPhone),
                 Objects.requireNonNull(products)
         )).apply();
     }
