@@ -78,4 +78,27 @@ public class Shipments extends AggregateEvent<ShipmentsID> {
         )).apply();
     }
 
+    public void assignTheNameAndPhoneNumberTheAddressee(CustomerID customerID, ShippingName shippingName, ShippingPhone shippingPhone) {
+        appendChange(new NameAndPhoneAssignedAddressee(
+                Objects.requireNonNull(customerID),
+                Objects.requireNonNull(shippingName),
+                Objects.requireNonNull(shippingPhone)
+        )).apply();
+    }
+
+    public SalesID getSalesID() {
+        return salesID;
+    }
+
+    public AddresseeID getAddresseeID() {
+        return addresseeID;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public ShippingDescription getShippingDescription() {
+        return shippingDescription;
+    }
 }
