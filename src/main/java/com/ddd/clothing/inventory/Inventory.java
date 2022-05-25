@@ -43,6 +43,15 @@ public class Inventory extends AggregateEvent<InventoryID> {
         )).apply();
     }
 
+    public void editProvider(ProviderID providerID, InventoryName inventoryName, ProviderPhone providerPhone, List<Product> products) {
+        appendChange(new EditedProvider(
+                Objects.requireNonNull(providerID),
+                Objects.requireNonNull(inventoryName),
+                Objects.requireNonNull(providerPhone),
+                Objects.requireNonNull(products)
+        )).apply();
+    }
+
     public void deleteProvider(ProviderID providerID) {
         appendChange(new DeletedProvider(
                 Objects.requireNonNull(providerID)
