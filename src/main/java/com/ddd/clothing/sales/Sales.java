@@ -20,6 +20,7 @@ import com.ddd.clothing.sales.events.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Sales extends AggregateEvent<SalesID> {
     protected List<Seller> sellers = new ArrayList<>();
@@ -78,7 +79,7 @@ public class Sales extends AggregateEvent<SalesID> {
         )).apply();
     }
 
-    public void  assignSeller(SellerID sellerID, Name name, Phone phone) {
+    public void assignSeller(SellerID sellerID, Name name, Phone phone) {
         appendChange(new AssignedSeller(
                 Objects.requireNonNull(sellerID),
                 Objects.requireNonNull(name),
@@ -132,5 +133,94 @@ public class Sales extends AggregateEvent<SalesID> {
 
     public void paySale(Payment payment) {
         appendChange(new SalePaid(Objects.requireNonNull(payment))).apply();
+    }
+
+    // Domain events
+    public void domainEventToCreateCustomer(CustomerID customerID, Name name, Phone phone) {
+        for (Customer customer : customers) {
+            if (customer.identity().equals(customerID)) {
+                throw new IllegalArgumentException("Customer already exists");
+            } else {
+                Customer newCustomer = new Customer(customerID, name, phone);
+                customers.add(newCustomer);
+            }
+        }
+    }
+
+    public void domainEventToEditCustomer(CustomerID customerID, Name name, Phone phone) {
+        for (Customer customer : customers) {
+            if (customer.identity().equals(customerID)) {
+                customer.customerNameChange(name);
+                customer.customerPhoneChange(phone);
+            } else {
+                throw new IllegalArgumentException("Customer does not exist");
+            }
+        }
+    }
+
+    public void domainEventToDeleteCustomer(CustomerID customerID) {
+        for (Customer customer : customers) {
+            if (customer.identity().equals(customerID)) {
+                customers.remove(customer);
+            } else {
+                throw new IllegalArgumentException("Customer does not exist");
+            }
+        }
+    }
+
+    public Optional<Customer> domainEventSearchCustomerByID(CustomerID customerID) {
+        for (Customer customer : customers) {
+            if (customer.identity().equals(customerID)) {
+                return Optional.of(customer);
+            } else {
+                throw new IllegalArgumentException("Customer does not exist");
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    public void domainEventToCreateSeller(SellerID sellerID, Name name, Phone phone) {
+        for (Seller seller : sellers) {
+            if (seller.identity().equals(sellerID)) {
+                throw new IllegalArgumentException("Seller already exists");
+            } else {
+                Seller newSeller = new Seller(sellerID, name, phone);
+                sellers.add(newSeller);
+            }
+        }
+    }
+
+    public void domainEventToEditSeller(SellerID sellerID, Name name, Phone phone) {
+        for (Seller seller : sellers) {
+            if (seller.identity().equals(sellerID)) {
+                seller.sellerNameChange(name);
+                seller.sellerPhoneChange(phone);
+            } else {
+                throw new IllegalArgumentException("Seller does not exist");
+            }
+        }
+    }
+
+    public void domainEventToDeleteSeller(SellerID sellerID) {
+        for (Seller seller : sellers) {
+            if (seller.identity().equals(sellerID)) {
+                sellers.remove(seller);
+            } else {
+                throw new IllegalArgumentException("Seller does not exist");
+            }
+        }
+    }
+
+    public Optional<Seller> domainEventSearchSellerByID(SellerID sellerID) {
+        for (Seller seller : sellers) {
+            if (seller.identity().equals(sellerID)) {
+                return Optional.of(seller);
+            } else {
+                throw new IllegalArgumentException("Seller does not exist");
+            }
+        }
+
+        return Optional.empty();
     }
 }

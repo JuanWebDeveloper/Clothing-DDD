@@ -23,6 +23,15 @@ public class Customer extends Entity<CustomerID> {
         super(customerID);
     }
 
+    // Methods Of The Entity
+    public void customerNameChange(Name newCustomerName) {
+        this.customerName = Objects.requireNonNull(newCustomerName);
+    }
+
+    public void customerPhoneChange(Phone newCustomerPhone) {
+        this.customerPhone = Objects.requireNonNull(newCustomerPhone);
+    }
+
     // Show The Entity Properties
     public Name getCustomerName() {
         return customerName;

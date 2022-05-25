@@ -7,6 +7,8 @@ import com.ddd.clothing.sales.valueObjects.SellerID;
 import com.ddd.clothing.sales.valueObjects.Name;
 import com.ddd.clothing.sales.valueObjects.Phone;
 
+import java.util.Objects;
+
 public class Seller extends Entity<SellerID> {
     protected SellerID sellerID;
     protected Name sellerName;
@@ -20,6 +22,15 @@ public class Seller extends Entity<SellerID> {
 
     public Seller(SellerID sellerID) {
         super(sellerID);
+    }
+
+    // Methods Of The Entity
+    public void sellerNameChange(Name newSellerName) {
+        this.sellerName = Objects.requireNonNull(newSellerName);
+    }
+
+    public void sellerPhoneChange(Phone newSellerPhone) {
+        this.sellerPhone = Objects.requireNonNull(newSellerPhone);
     }
 
     // Show The Entity Properties
