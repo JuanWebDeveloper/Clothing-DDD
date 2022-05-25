@@ -3,7 +3,6 @@ package com.ddd.clothing.shipments.events;
 import co.com.sofka.domain.generic.DomainEvent;
 import com.ddd.clothing.shipments.valueObjects.Address;
 import com.ddd.clothing.shipments.valueObjects.AddresseeID;
-import com.ddd.clothing.shipments.valueObjects.ShippingDescription;
 
 public class ShippingDescriptionEdited extends DomainEvent {
     private final AddresseeID addresseeID;
