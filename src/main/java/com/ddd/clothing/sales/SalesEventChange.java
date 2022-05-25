@@ -12,5 +12,9 @@ public class SalesEventChange extends EventChange {
         apply((SellerCreated event) -> {
             sales.createSeller(event.getSellerID(), event.getName(), event.getPhone());
         });
+
+        apply((CustomerCreated event) -> {
+            sales.createCustomer(event.getCustomerID(), event.getName(), event.getPhone());
+        });
     }
 }
