@@ -129,4 +129,8 @@ public class Sales extends AggregateEvent<SalesID> {
     public void generateBill(Bill bill) {
         appendChange(new BillGenerated(Objects.requireNonNull(bill))).apply();
     }
+
+    public void paySale(Payment payment) {
+        appendChange(new SalePaid(Objects.requireNonNull(payment))).apply();
+    }
 }

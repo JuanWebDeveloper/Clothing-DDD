@@ -3,6 +3,7 @@ package com.ddd.clothing.sales;
 import co.com.sofka.domain.generic.EventChange;
 import com.ddd.clothing.sales.entities.*;
 import com.ddd.clothing.sales.events.*;
+import com.ddd.clothing.sales.valueObjects.Payment;
 import com.ddd.clothing.sales.valueObjects.Total;
 
 public class SalesEventChange extends EventChange {
@@ -54,6 +55,10 @@ public class SalesEventChange extends EventChange {
 
         apply((BillGenerated event) -> {
             sales.bill = event.getBill();
+        });
+
+        apply((SalePaid event) -> {
+            sales.payment = new Payment(Payment.Phase.PAID_OUT);
         });
     }
 }
