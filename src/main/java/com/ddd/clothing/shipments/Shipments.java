@@ -4,13 +4,15 @@ package com.ddd.clothing.shipments;
 import co.com.sofka.domain.generic.AggregateEvent;
 
 // Imports of the sales
-import com.ddd.clothing.sales.valueObjects.Date;
-import com.ddd.clothing.sales.valueObjects.SellerID;
+import com.ddd.clothing.sales.valueObjects.*;
 
 // Value objects import
-import com.ddd.clothing.shipments.valueObjects.AddresseeID;
-import com.ddd.clothing.shipments.valueObjects.ShipmentsID;
-import com.ddd.clothing.shipments.valueObjects.ShippingDescription;
+import com.ddd.clothing.shipments.valueObjects.*;
+
+// Events import
+import com.ddd.clothing.shipments.events.ShipmentCreated;
+
+import java.util.Objects;
 
 public class Shipments extends AggregateEvent<ShipmentsID> {
     protected AddresseeID addresseeID;
@@ -19,7 +21,21 @@ public class Shipments extends AggregateEvent<ShipmentsID> {
     protected ShippingDescription shippingDescription;
 
 
-    public Shipments(ShipmentsID shipmentsID) {
+    public Shipments(ShipmentsID shipmentsID, SellerID sellerID, AddresseeID addresseeID, DomiciliaryID domiciliaryID, Address address, ShippingDescription shippingDescription, Date date) {
         super(shipmentsID);
+        subscribe(new ShipmentsEventChange(this));
+        appendChange(new ShipmentCreated(
+                Objects.requireNonNull(sellerID),
+                Objects.requireNonNull(addresseeID),
+                Objects.requireNonNull(domiciliaryID),
+                Objects.requireNonNull(address),
+                Objects.requireNonNull(shippingDescription),
+                Objects.requireNonNull(date)
+        ));
+    }
+
+    private Shipments(ShipmentsID shipmentsID) {
+        super(shipmentsID);
+        subscribe(new ShipmentsEventChange(this));
     }
 }
